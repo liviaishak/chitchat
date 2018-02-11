@@ -7,34 +7,18 @@ class MessageList extends Component {
         username: "", content: "", sentAt:"", roomId:"", messages: []
       };
 
-      this.messagesRef = this.props.firebase.database().ref("messages");
+      this.messagesRef = this.props.firebase.database().ref('messages');
       this.createMessage = this.createMessage.bind(this);
-      // this.handleUserChange = this.handleUserChange.bind(this);
+      this.handleUserChange = this.handleUserChange.bind(this);
       this.handleContentChange = this.handleContentChange.bind(this);
 
   }
 
-  // handleUserChange(e){
-  //   e.preventDefault();
-  //   if( typeof this.props.activeRoom ==='undefined'){
-  //       alert("Please select a room first");
-  //       return
-  //    }
-  //   this.setState({username: e.target.value,
-  //                   sentAt: this.props.firebase.database.ServerValue.TIMESTAMP,
-  //                   roomId: this.props.activeRoom});
-  // }
-
-  handleContentChange(e) {
-   //  if( typeof this.props.activeRoom ==='undefined'){
-   //    alert("Please select a room first");
-   //    return
-   // }
+  handleUserChange(e){
     e.preventDefault();
-    this.setState({content: e.target.value,
+    this.setState({username: e.target.value,
                     sentAt: this.props.firebase.database.ServerValue.TIMESTAMP,
                     roomId: this.props.activeRoom});
-
   }
 
   componentDidMount() {
@@ -45,8 +29,17 @@ class MessageList extends Component {
     });
   }
 
+  handleContentChange(e) {
+    e.preventDefault();
+    this.setState({content: e.target.value,
+                    sentAt: this.props.firebase.database.ServerValue.TIMESTAMP,
+                    roomId: this.props.activeRoom});
+
+  }
+
   createMessage(e){
   e.preventDefault();
+  console.log(this.state);
    this.messagesRef.push({
     username: this.state.username,
     content: this.state.content,
@@ -61,7 +54,7 @@ class MessageList extends Component {
     return (
       <section className="MessageList">
         <form className="addMessage">
-           // <input type='text' value={this.state.userName} placeholder="Type Your Name" onChange = {this.handleUserChange} />
+           <input type='text' value={this.state.userName} placeholder="Type Your Name" onChange = {this.handleUserChange} />
            <input type='text' value={this.state.content} placeholder="Type Your Message" onChange = {this.handleContentChange} />
            <button type="submit" onClick={this.createMessage}>Send</button>
         </form>
