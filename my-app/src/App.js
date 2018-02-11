@@ -15,6 +15,7 @@ import MessageList from './components/MessageList.js'
     messagingSenderId: "536073229540"
   };
   firebase.initializeApp(config);
+  var rootRef = firebase.database().ref();
 
 class App extends Component {
 
@@ -22,25 +23,33 @@ class App extends Component {
       super(props);
 
       this.state = {
-        activeRoom:""
+        activeRoom:"",
+        user:""
       };
-      this.activeRoom = this.activeRoom.bind(this);
+      this.setActiveRoom = this.setActiveRoom.bind(this);
+      this.setUser=this.setUser.bind(this);
   }
 
-  activeRoom(room){
+  setActiveRoom(room){
     this.setState({activeRoom : room})
   }
 
+ setUser(user){
+   this.setState({user:user});
+
+ }
   render() {
+
+    const showMessages = this.state.activeRoom;
+
     return (
-      <div className="App">
-        <main>
-          <RoomList firebase={firebase} activeRoom={this.activeRoom}/>
-        </main>
-        <div className="messageWindow">
-        <h1>{this.state.activeRoom.name || 'Select Room'}</h1>
-        <MessageList firebase={firebase} activeRoom={this.activeRoom.key}/>
-      </div>
+      <div>
+        <h1>{this.state.activeRoom.name || "Choose a room or Create one"}</h1>
+        <RoomList firebase={firebase} setActiveRoom={this.setActiveRoom} />
+        { showMessages ?
+          <MessageList firebase={firebase} activeRoom={this.state.activeRoom.key}  />
+        : null
+        }
       </div>
     );
   }
