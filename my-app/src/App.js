@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import * as firebase from 'firebase';
 import RoomList from './components/RoomList.js'; //RoomList component rendered here
-
+import MessageList from './components/MessageList.js'
 
 // Initialize Firebase
   var config = {
@@ -17,12 +17,30 @@ import RoomList from './components/RoomList.js'; //RoomList component rendered h
   firebase.initializeApp(config);
 
 class App extends Component {
+
+  constructor(props){
+      super(props);
+
+      this.state = {
+        activeRoom:""
+      };
+      this.activeRoom = this.activeRoom.bind(this);
+  }
+
+  activeRoom(room){
+    this.setState({activeRoom : room})
+  }
+
   render() {
     return (
       <div className="App">
         <main>
-          <RoomList firebase={firebase} />
+          <RoomList firebase={firebase} activeRoom={this.activeRoom}/>
         </main>
+        <div className="messageWindow">
+        <h1>{this.state.activeRoom.name || 'Select Room'}</h1>
+        <MessageList firebase={firebase} activeRoom={this.activeRoom.key}/>
+      </div>
       </div>
     );
   }
