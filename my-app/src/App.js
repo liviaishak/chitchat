@@ -4,6 +4,9 @@ import './App.css';
 import * as firebase from 'firebase';
 import RoomList from './components/RoomList.js'; //RoomList component rendered here
 import MessageList from './components/MessageList.js'
+import User from './components/User/User.js'
+
+
 
 // Initialize Firebase
   var config = {
@@ -46,14 +49,16 @@ import MessageList from './components/MessageList.js'
  //render method
   render() {
 
-    const showMessages = this.state.activeRoom;
+    let showMessages = this.state.activeRoom;
+    let currentUser = this.state.user === null ? "Guest" : this.state.user.displayName;
 
     return (
       <div>
+        <User firebase={firebase} setUser={this.setUser} currentUser={currentUser}  />
         <h1>{this.state.activeRoom.name || "Choose a room or Create one"}</h1>
         <RoomList firebase={firebase} setActiveRoom={this.setActiveRoom} />
-        { showMessages ?
-        <MessageList firebase={firebase} activeRoom={this.state.activeRoom.key}  />
+         { showMessages ?
+        <MessageList firebase={firebase} activeRoom={this.state.activeRoom.key} user={currentUser} />
         : null
         }
       </div>

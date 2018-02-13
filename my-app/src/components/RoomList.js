@@ -52,14 +52,14 @@ selectRoom(room) {
 render() {
 
   const roomList = this.state.rooms.map((room, index) =>
-    <li key={room.key} onClick={(e) => this.selectRoom(room,e)}>{room.name} </li>
+    <li key={room.key} onClick={(e) => this.selectRoom(room,e)}>
+    {room.name} </li>
   );
 
   const roomForm = (
        <form className = 'newRoom' onSubmit={this.createRoom}>
          <h2>Add a room:</h2>
          <input type='text' value={this.state.name} onChange = {this.handleChange} />
-         <button className='create-room' type='submit' onClick={this.createRoom}>Create Room</button>
        </form>
      );
 
