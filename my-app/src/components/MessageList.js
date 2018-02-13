@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 
 class MessageList extends Component {
+
+//constructor method
   constructor(props){
       super(props);
+
+//set states of the objects
       this.state = {
         username: "",
         content: "",
@@ -10,12 +14,14 @@ class MessageList extends Component {
         roomId: "",
         messages: []
       };
+//bind(this) each method
       this.messagesRef = this.props.firebase.database().ref('messages');
       this.createMessage = this.createMessage.bind(this);
       this.addMessage = this.addMessage.bind(this);
 
   };
 
+//componentDidMount method
   componentDidMount() {
 		this.messagesRef.on('child_added', snapshot => {
 			const message = snapshot.val();
@@ -24,6 +30,7 @@ class MessageList extends Component {
 		});
   }
 
+//methods
   addMessage(e){
     e.preventDefault();
     this.setState(

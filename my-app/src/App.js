@@ -14,11 +14,14 @@ import MessageList from './components/MessageList.js'
     storageBucket: "bloc-chat-ab99c.appspot.com",
     messagingSenderId: "536073229540"
   };
+
   firebase.initializeApp(config);
   var rootRef = firebase.database().ref();
 
-class App extends Component {
+//class App
+  class App extends Component {
 
+//constructor method (initializing state)
   constructor(props){
       super(props);
 
@@ -27,9 +30,10 @@ class App extends Component {
         user:""
       };
       this.setActiveRoom = this.setActiveRoom.bind(this);
-      this.setUser=this.setUser.bind(this);
+      this.setUser = this.setUser.bind(this);
   }
 
+//create methods; every method has to .bind(this)
   setActiveRoom(room){
     this.setState({activeRoom : room})
   }
@@ -38,6 +42,8 @@ class App extends Component {
    this.setState({user:user});
 
  }
+
+ //render method
   render() {
 
     const showMessages = this.state.activeRoom;
@@ -47,7 +53,7 @@ class App extends Component {
         <h1>{this.state.activeRoom.name || "Choose a room or Create one"}</h1>
         <RoomList firebase={firebase} setActiveRoom={this.setActiveRoom} />
         { showMessages ?
-          <MessageList firebase={firebase} activeRoom={this.state.activeRoom.key}  />
+        <MessageList firebase={firebase} activeRoom={this.state.activeRoom.key}  />
         : null
         }
       </div>

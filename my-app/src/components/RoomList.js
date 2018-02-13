@@ -1,20 +1,25 @@
 import React, { Component } from 'react';
 
 class RoomList extends Component {
+
+//constructor method
   constructor(props){
       super(props);
 
+//setting the state
       this.state = { //initialize state
         rooms: [], //store list of rooms under firebase
         name:"" //new room name input
       };
 
+//every method bind(this)
       this.roomsRef = this.props.firebase.database().ref('rooms'); //firebase ref of the room list
       this.createRoom = this.createRoom.bind(this);
       this.handleChange = this.handleChange.bind(this);
   }
 
-  componentDidMount() { //lifecycle
+//componentDidMount
+  componentDidMount() { //after the initial rendering
     this.roomsRef.on('value', snapshot => {
       const roomChange = [];
       snapshot.forEach((room) => {
@@ -27,8 +32,9 @@ class RoomList extends Component {
     });
   }
 
+//create methods
 handleChange(e){ //trigger UI
-  e.preventDefault();
+  e.preventDefault(); //to prevent from loading to a new page
   this.setState({name: e.target.value}) //put inside the name
 }
 
@@ -42,6 +48,7 @@ selectRoom(room) {
   this.props.setActiveRoom(room);
 }
 
+//render method
 render() {
 
   const roomList = this.state.rooms.map((room, index) =>
@@ -56,6 +63,8 @@ render() {
        </form>
      );
 
+
+//return the render
   return (
     <section className="roomList">
       <h1 className='title'>Bloc Chat</h1>
