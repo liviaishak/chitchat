@@ -58,7 +58,7 @@ import User from './components/User/User.js'
         <h1>{this.state.activeRoom.name || "Choose a room or Create one"}</h1>
         <RoomList firebase={firebase} setActiveRoom={this.setActiveRoom} />
          { showMessages ?
-        <MessageList firebase={firebase} activeRoom={this.state.activeRoom.key} user={currentUser} />
+        <MessageList firebase={firebase} activeRoom={this.state.activeRoom.key} currentUser={currentUser} />
         : null
         }
       </div>

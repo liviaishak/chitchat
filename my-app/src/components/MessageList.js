@@ -37,7 +37,7 @@ class MessageList extends Component {
       {
         content: e.target.value,
         sentAt: this.props.firebase.database.ServerValue.TIMESTAMP,
-        roomId: this.props.activeRoom
+        roomId: this.props.activeRoom,
       })
   }
 
@@ -48,7 +48,7 @@ class MessageList extends Component {
  {
     content: this.state.content,
     sentAt: this.state.sentAt,
-    roomId: this.state.roomId
+    roomId: this.state.roomId,
   }
 );
 

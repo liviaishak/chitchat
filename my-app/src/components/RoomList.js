@@ -59,7 +59,8 @@ render() {
   const roomForm = (
        <form className = 'newRoom' onSubmit={this.createRoom}>
          <h2>Add a room:</h2>
-         <input type='text' value={this.state.name} onChange = {this.handleChange} />
+         <input type='text' value={this.state.name} placeholder="Enter room here" onChange = {this.handleChange} />
+         <input type="submit" value="Create a room"/>
        </form>
      );
 
