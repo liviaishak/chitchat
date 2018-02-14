@@ -16,6 +16,8 @@ class RoomList extends Component {
       this.roomsRef = this.props.firebase.database().ref('rooms'); //firebase ref of the room list
       this.createRoom = this.createRoom.bind(this);
       this.handleChange = this.handleChange.bind(this);
+      this.deleteRoom = this.deleteRoom.bind(this);
+
   }
 
 //componentDidMount
@@ -48,12 +50,18 @@ selectRoom(room) {
   this.props.setActiveRoom(room);
 }
 
+deleteRoom(roomkey) {
+  this.roomsRef.child(roomkey).remove();
+}
+
 //render method
 render() {
 
   const roomList = this.state.rooms.map((room, index) =>
-    <li key={room.key} onClick={(e) => this.selectRoom(room,e)}>
-    {room.name} </li>
+    <li key={room.key} onClick={(e) => this.selectRoom(room,e)} > {room.name}
+      <button key={room.key} onClick={(e) => this.deleteRoom(room.key)}> Delete </button>
+    </li>
+
   );
 
   const roomForm = (
@@ -63,7 +71,6 @@ render() {
          <input type="submit" value="Create a room"/>
        </form>
      );
-
 
 //return the render
   return (
