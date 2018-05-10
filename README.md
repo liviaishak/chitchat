@@ -1,5 +1,5 @@
-## Bloc-Chat
-Bloc-Chat is a chatting app created with React and Firebase.
+## ChitChat
+ChitChat is a chatting app created with React and Firebase.
 
 ## Features:
 <p>Sending and Receiving Messages in Real Time</p>
